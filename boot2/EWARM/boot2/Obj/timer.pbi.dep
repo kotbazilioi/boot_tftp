@@ -1,4 +1,5 @@
-timer.pbi: E:\ika\development\F107\boot1\boot2\Middlewares\uIP\timer.c \
-  E:\ika\development\F107\boot1\boot2\Middlewares\uIP/clock.h \
+timer.pbi: \
+  E:\ika\development\F107\boot1\boot_tftp\boot2\Middlewares\uIP\timer.c \
+  E:\ika\development\F107\boot1\boot_tftp\boot2\Middlewares\uIP/clock.h \
   E:\ika\development\F107\boot1\boot2\Core\Src\clock-arch.h \
-  E:\ika\development\F107\boot1\boot2\Middlewares\uIP/timer.h
+  E:\ika\development\F107\boot1\boot_tftp\boot2\Middlewares\uIP/timer.h

@@ -510,9 +510,7 @@ uint8_t load_struct_flash_data (void)
       
    if ((CRC_BOOT!= crc16_ccitt((uint8_t*)IP_CONFIG,24))||(CRC_BOOT==0))   
    {
-    
      FW_data.V_CRC_APP=0;
-      
      FW_data.V_IP_CONFIG[0]=192;
      FW_data.V_IP_CONFIG[1]=168;
      FW_data.V_IP_CONFIG[2]=0;
@@ -531,7 +529,7 @@ uint8_t load_struct_flash_data (void)
      FW_data.V_FW1_VER[0]=0;
      FW_data.V_FW1_VER[1]=0;
      FW_data.V_FW1_VER[2]=0;
-     FW_data.V_FW1_VER[3]=0;
+     FW_data.V_FW1_VER[3]=1;
      FW_data.V_FW1_LEN=0;
      FW_data.V_BOOT_VER = BOOT_VER_FW;
      FW_data.V_CRC_DATA = 0;
@@ -540,11 +538,12 @@ uint8_t load_struct_flash_data (void)
      memcpy((uint32_t*)&FW_data.V_LOGIN, (uint32_t *)"admin", 5);
       memset((uint8_t*)&FW_data.V_PASSWORD,0,16);
      memcpy((uint32_t*)&FW_data.V_PASSWORD, (uint32_t *)"admin", 5);
-     FW_data.V_IP_DNS[0]=0;
+     FW_data.V_IP_DNS[0]=10;
      FW_data.V_IP_DNS[1]=0;
      FW_data.V_IP_DNS[2]=0;
-     FW_data.V_IP_DNS[3]=0;
+     FW_data.V_IP_DNS[3]=18;
      FW_data.V_WEB_PORT = 80;
+     //HTTPD_SERVER_PORT =FW_data.V_WEB_PORT;
      FW_data.V_PORT_SNMP = 162;
      FW_data.V_HTTP_IP = 81;
      memset((uint8_t*)&FW_data.V_ON_MESS,0,32);
@@ -576,24 +575,43 @@ uint8_t load_struct_flash_data (void)
      FW_data.V_IP_NTP2[2]=244; //192.43.244.18
      FW_data.V_IP_NTP2[3]=18; //192.43.244.18
      FW_data.V_PORT_NTP  = 123;
-     memset((uint8_t*)&FW_data.V_NAME_SNMP,0,16);
-     memcpy((uint8_t*)&FW_data.V_NAME_SNMP, (uint8_t *)"Name SNMP Server",16);
+     memset((uint8_t*)&FW_data.V_NAME_SMTP,0,16);
+     memcpy((uint8_t*)&FW_data.V_NAME_SMTP, (uint8_t *)"Name SNMP Server",16);
      FW_data.V_PORT_SNMP = 162;
-     memset((uint8_t*)&FW_data.V_LOGIN_SNMP,0,16);
-     memcpy((uint32_t*)&FW_data.V_LOGIN_SNMP, (uint32_t *)"admin", 5);
-     memset((uint8_t*)&FW_data.V_PASSWORD_SNMP,0,16);
-     memcpy((uint32_t*)&FW_data.V_PASSWORD_SNMP, (uint32_t *)"admin", 5);
-     memset((uint8_t*)&FW_data.V_resv,0,1733);
-     FW_data.V_CRC_LOG = 0;
-     memset((uint8_t*)&FW_data.V_LOG,0,2000);
+     memset((uint8_t*)&FW_data.V_LOGIN_SMTP,0,16);
+     memcpy((uint32_t*)&FW_data.V_LOGIN_SMTP, (uint32_t *)"admin", 5);
+     memset((uint8_t*)&FW_data.V_PASSWORD_SMTP,0,16);
+     memcpy((uint32_t*)&FW_data.V_PASSWORD_SMTP, (uint32_t *)"admin", 5);
+     memcpy((uint32_t*)&FW_data.V_GEOM_NAME, (uint32_t *)"Moscow office", 13);    
      
+    FW_data.V_ID_MAC[0] =   00;//(uint16_t)idBase0[0];
+    FW_data.V_ID_MAC[1] =   ((uint16_t)idBase0[0])>>8;
+    FW_data.V_ID_MAC[2] =   (uint16_t)idBase1[0];
+    FW_data.V_ID_MAC[3] =   ((uint16_t)idBase1[0])>>8;
+    FW_data.V_ID_MAC[4] =   (uint16_t)idBase2[0];
+    FW_data.V_ID_MAC[5] =   ((uint16_t)idBase2[0])>>8;
+    FW_data.V_ID_MAC[6] =    0x59;
+    FW_data.V_ID_MAC[7] =    0xDC;
+    memcpy((uint8_t*)&FW_data.V_Name_dev,(uint8_t *)"DKSF 59",7);    
+    memcpy((uint8_t*)&FW_data.V_CALL_DATA,(uint8_t *)"netping.ru",10);   
     
+    memset((uint8_t*)&FW_data.V_resv,0,1659);
+    FW_data.V_logs_struct.CRC16 = 0;
+    memset((uint8_t*)&FW_data.V_logs_struct.log_reple,0,2000);
+     
+     FW_data.V_IP_SNMP[0]=192;//     62.117.76.142
+     FW_data.V_IP_SNMP[1]=168;
+     FW_data.V_IP_SNMP[2]=0;
+     FW_data.V_IP_SNMP[3]=152;
+     FW_data.V_TYPE_OUT=0;
+     
+     FW_data.V_NTP_CIRCL = 0;
+     
      FW_data.V_CRC_BOOT=crc16_ccitt((uint8_t*)&(FW_data.V_IP_CONFIG[0]),24);     
-     FW_data.V_CRC_LOG = crc16_ccitt((uint8_t*)&(FW_data.V_LOG[0]),2000);
+     FW_data.V_logs_struct.CRC16 = crc16_ccitt((uint8_t*)&(FW_data.V_logs_struct.log_reple[0]),2000);
      FW_data.V_CRC_DATA=crc16_ccitt((uint8_t*)&(FW_data.V_DHCP),2018);
      
      save_data_blok(3,(uint32_t*)&FW_data.V_CRC_APP); 
-     
 
      
 

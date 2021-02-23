@@ -108,12 +108,12 @@
 #define A_CRC_DATA 0x800401C
 #define A_DHCP 0x800401E
 //*******************************
-#define A_LOGIN A_DHCP+16
+#define A_LOGIN A_DHCP+2
 #define A_PASSWORD A_LOGIN+16 
-#define A_DNS A_PASSWORD+4
+#define A_DNS A_PASSWORD+16
 #define A_WEB_PORT A_DNS+4 
-#define A_SNMP A_WEB_PORT+2 
-#define A_HTTP_IP A_SNMP+2
+#define A_SNMP A_WEB_PORT+4 
+#define A_HTTP_IP A_SNMP+4
 #define A_ON_MESS A_HTTP_IP+2
 #define A_OFF_MESS A_ON_MESS+32
 #define A_FLAG_EN_MAN A_OFF_MESS+32
@@ -136,17 +136,29 @@
 #define A_IP_NTP1 A_N_PING+2
 #define A_IP_NTP2 A_IP_NTP1+4
 #define A_PORT_NTP A_IP_NTP2+4
-#define A_NAME_SNMP A_PORT_NTP+2
-#define A_PORT_SNMP A_NAME_SNMP+32
-#define A_LOGIN_SNMP A_PORT_SNMP+2
-#define A_PASSWORD_SNMP A_LOGIN_SNMP+16
-#define A_RESV A_PASSWORD_SNMP+16
+#define A_NAME_SMTP A_PORT_NTP+2
+#define A_PORT_SNMP A_NAME_SMTP+32
+#define A_LOGIN_SMTP A_PORT_SNMP+2
+#define A_PASSWORD_SMTP A_LOGIN_SMTP+16
+#define A_GEOM_NAME A_PASSWORD_SMTP+16  
+#define A_ID_MAC A_GEOM_NAME+32        
+#define A_NAME_DEV A_ID_MAC+8
+#define A_CALL_DATA A_NAME_DEV+16
+#define A_IP_SNMP A_CALL_DATA+16
+#define A_NTP_CIRCL A_IP_SNMP+4 
+#define A_TYPE_OUT A_NTP_CIRCL+1
+#define A_RESV V_TYPE_OUT+1
+    
+    
+    
+    
+    
 #define A_CRC_LOG 0x8004800
 #define A_LOG A_CRC_LOG+2
 #define A_START_APP 0x8005000
 #define A_FW_APP 0x8005004
 #define A_HTTP_DUMP 0x8005000
-#define A_END_APP     ((uint32_t)0x08020000) 
+#define A_END_APP     ((uint32_t)0x08040000) 
 
 #define BOOT_VER_FW 0X00010001
 
@@ -354,7 +366,24 @@ uint16_t temp_block;
 uint16_t index;
 uint8_t data_to_block[2048];
 }file_data_t;
+typedef struct 
+{
+uint8_t dicr ;//0
+uint8_t type_event;//1
+uint8_t reple_hours;//2
+uint8_t reple_minuts;//3
+uint8_t reple_seconds;//4
+uint8_t day;//5
+uint8_t dweek;//6
+uint8_t month;//7
+uint16_t year;//9
 
+}log_reple_t;
+typedef struct 
+{
+ uint16_t CRC16;
+ log_reple_t log_reple[200];
+} logs_t;
 
 typedef struct 
 { 
@@ -446,19 +475,28 @@ uint8_t V_IP_NTP2[4];
 ////#define A_IP_NTP2 0x80040F5
 uint16_t V_PORT_NTP;
 ////#define A_PORT_NTP 0x80040F9
-char V_NAME_SNMP[16];
+char V_NAME_SMTP[16];
 ////#define A_NAME_SNMP 0x80040FB
 uint16_t V_PORT_SNMP;
 ////#define A_PORT_SNMP 0x800411B
-char V_LOGIN_SNMP[16];
+char V_LOGIN_SMTP[16];
 ////#define A_LOGIN_SNMP 0x800411D
-char V_PASSWORD_SNMP[16];
+char V_PASSWORD_SMTP[16];
 ////#define A_PASSWORD_SNMP 0x800412B
-uint8_t V_resv[1733];
+char V_GEOM_NAME[32];
+uint8_t V_ID_MAC[8];
+char V_Name_dev[16];
+char V_CALL_DATA[16];
+uint8_t V_IP_SNMP[4];
+signed char V_NTP_CIRCL;
+uint8_t V_TYPE_OUT;
+uint8_t V_resv[1669];
+
 ////#define A_RESV 0x800413B
-uint16_t V_CRC_LOG;
+logs_t V_logs_struct;
+//uint16_t V_CRC_LOG;
 ////#define A_CRC_LOG 0x8004800
-char V_LOG[50][40]; 
+//char V_LOG[50][40]; 
 ////#define A_LOG 0x8004804
 ////#define A_START_APP 0x8005000
 ////#define A_FW_APP 0x8005004

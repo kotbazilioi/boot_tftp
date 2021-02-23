@@ -1,1 +1,2 @@
-psock.pbi: E:\ika\development\F107\boot1\boot2\Middlewares\uIP\psock.c
+psock.pbi: \
+  E:\ika\development\F107\boot1\boot_tftp\boot2\Middlewares\uIP\psock.c

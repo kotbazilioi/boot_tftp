@@ -62,7 +62,7 @@
 //////__root const char LOG[2000] @ A_LOG;
 //////
 
-
+//RTC_HandleTypeDef hrtc;
 
 
 /* USER CODE BEGIN PV */
@@ -73,7 +73,7 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
-////static void MX_RTC_Init(void);
+static void MX_RTC_Init(void);
 static void MX_ETH_Init(void);
 void DeSystemClock_Config(void);
 static void MX_WWDG_Init(void);
@@ -126,7 +126,7 @@ load_struct_flash_data();
   MX_DMA_Init();
  
 //  MX_CRC_Init();
-////  MX_RTC_Init();
+ // MX_RTC_Init();
   MX_ETH_Init();
  
   /* USER CODE BEGIN 2 */
@@ -348,10 +348,17 @@ static void MX_DMA_Init(void)
   * @param None
   * @retval None
   */
+
+  
+ //     #define BKP_BASE              (0x40000000UL + 0x00006C00UL)
+//#define BKP_DR1_D_Pos                       (0U)                               
+//#define BKP_DR1_D_Msk                       (0xFFFFUL << BKP_DR1_D_Pos)         /*!< 0x0000FFFF */
+//#define BKP_DR1_D                           BKP_DR1_D_Msk                      /*!< Backup data */
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-
+  uint32_t pvalue = 0U;
+ uint32_t backupregister = 0U;
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -362,17 +369,55 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(PHY_RST_GPIO_Port, PHY_RST_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LED_GREEN_Pin|LED_RED_Pin, GPIO_PIN_RESET);
-
+  HAL_GPIO_WritePin(GPIOC, LED_RED_Pin, GPIO_PIN_RESET);
+  
+//  GPIO_InitStruct.Pin = LED_GREEN_Pin;
+//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+//  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+//
+//
+// backupregister = (uint32_t)0x40000000UL + 0x00006C00UL+4;
+// // backupregister += (1 * 4U);
+//  pvalue = (*(__IO uint32_t *)(backupregister)) & 0xFFFFUL;
+//  //set_out_port(HAL_RTCEx_BKUPRead(&hrtc,1),1);
+//  if (pvalue==0)
+//  {
+//    if (FW_data.V_TYPE_OUT==0)
+//    {
+//      HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,0);    
+//    }
+//    if (FW_data.V_TYPE_OUT==1)
+//    {
+//      HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,1);    
+//    }    
+//  }
+//  
+//  if (pvalue==1)
+//  {
+//    if (FW_data.V_TYPE_OUT==0)
+//    {
+//      HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,1);    
+//    }
+//    if (FW_data.V_TYPE_OUT==1)
+//    {
+//      HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,0);    
+//    }    
+//  }
+  
+  /*Configure GPIO pins : LED_GREEN_Pin LED_RED_Pin */
+ 
+  
   /*Configure GPIO pin : PHY_RST_Pin */
   GPIO_InitStruct.Pin = PHY_RST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
   HAL_GPIO_Init(PHY_RST_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LED_GREEN_Pin LED_RED_Pin */
-  GPIO_InitStruct.Pin = LED_GREEN_Pin|LED_RED_Pin;
+  
+   /*Configure GPIO pins : LED_GREEN_Pin LED_RED_Pin */
+  GPIO_InitStruct.Pin = LED_RED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -450,7 +495,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			timer_uip=0;
 		}
               //  HAL_GPIO_TogglePin (GPIO_TypeDef * GPIOx, uint16_t GPIO_Pin)
-                  HAL_GPIO_TogglePin (LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+                  HAL_GPIO_TogglePin (LED_RED_GPIO_Port, LED_RED_Pin);
                 
 	}
         if (timer_to_app<TIME_TO_APP)
