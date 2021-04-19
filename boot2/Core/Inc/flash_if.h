@@ -96,17 +96,17 @@
 
 #define A_START_BOOT 0x08000000
 #define A_BOOT_FW 0x08000004
-#define A_CRC_APP 0x8004000
-#define A_CRC_DATA_BOOT 0x8004002
+#define A_CRC_APP 0x8005000
+#define A_CRC_DATA_BOOT 0x8005002
 //*******************************
-#define A_IP_ADRESS 0x8004004
-#define A_IP_MASK 0x8004008
-#define A_GET_ADRESS 0x800400c
-#define A_FW_VER 0x8004010
-#define A_FW_LEN 0x8004014
-#define A_BOOT_VER 0x8004018
-#define A_CRC_DATA 0x800401C
-#define A_DHCP 0x800401E
+#define A_IP_ADRESS 0x8005004
+#define A_IP_MASK 0x8005008
+#define A_GET_ADRESS 0x800500c
+#define A_FW_VER 0x8005010
+#define A_FW_LEN 0x8005014
+#define A_BOOT_VER 0x8005018
+#define A_CRC_DATA 0x800501C
+#define A_DHCP 0x800501E
 //*******************************
 #define A_LOGIN A_DHCP+2
 #define A_PASSWORD A_LOGIN+16 
@@ -153,11 +153,11 @@
     
     
     
-#define A_CRC_LOG 0x8004800
+#define A_CRC_LOG 0x8005800
 #define A_LOG A_CRC_LOG+2
-#define A_START_APP 0x8005000
-#define A_FW_APP 0x8005004
-#define A_HTTP_DUMP 0x8005000
+#define A_START_APP 0x8007000
+#define A_FW_APP 0x8007004
+#define A_HTTP_DUMP 0x8007000
 #define A_END_APP     ((uint32_t)0x08040000) 
 
 #define BOOT_VER_FW 0X00010001
@@ -366,6 +366,7 @@ uint16_t temp_block;
 uint16_t index;
 uint8_t data_to_block[2048];
 }file_data_t;
+
 typedef struct 
 {
 uint8_t dicr ;//0
@@ -379,11 +380,37 @@ uint8_t month;//7
 uint16_t year;//9
 
 }log_reple_t;
+
 typedef struct 
 {
  uint16_t CRC16;
  log_reple_t log_reple[200];
 } logs_t;
+
+typedef struct 
+{
+ uint8_t on_swich_m;
+ uint8_t on_swich_h;
+ uint8_t off_swich_m;
+ uint8_t off_swich_h;
+} day_swich_elem;
+typedef struct 
+{
+ uint8_t day;
+ uint8_t month;
+ uint8_t year;
+} data_swich_elem;
+typedef struct 
+{
+ day_swich_elem time_data[6];
+ uint8_t set_up_day;
+} V_D_TIME_type;
+
+typedef struct 
+{
+ data_swich_elem data[10];
+ uint8_t restore_day[10];
+} V_RD_DATA_type;
 
 typedef struct 
 { 
@@ -438,21 +465,10 @@ uint8_t V_FLAG_EN_WATCHMAN;
 ////#define A_FLAG_EN_WATCHMAN 0x800408E
 uint8_t V_EMAIL_ERR[32];
 ////#define A_EMAIL_ERR 0x800408F
-uint16_t V_D_TIME[10][2];
-////#define A_D1_TIME 0x80040AF
-////#define A_D2_TIME 0x80040B3
-////#define A_D3_TIME 0x80040B7
-////#define A_D4_TIME 0x80040BB
-////#define A_D5_TIME 0x80040BF
-////#define A_D6_TIME 0x80040C3
-////#define A_D7_TIME 0x80040C7
-////#define A_D8_TIME 0x80040CB
-////#define A_D9_TIME 0x80040CF
-////#define A_D10_TIME 0x80040D3
-uint16_t V_RD_TIME[3][2];
-////#define A_RD1_TIME 0x80040D7
-////#define A_RD2_TIME 0x80040DB
-////#define A_RD3_TIME 0x80040DF
+V_D_TIME_type V_D_TIME[10]; //260
+
+V_RD_DATA_type V_RD_DATA; //78
+
 uint16_t V_IP_PING_TIME;
 ////#define A_IP_PING_TIME 0x80040E3
 uint16_t V_TIME_SEND;
@@ -475,13 +491,13 @@ uint8_t V_IP_NTP2[4];
 ////#define A_IP_NTP2 0x80040F5
 uint16_t V_PORT_NTP;
 ////#define A_PORT_NTP 0x80040F9
-char V_NAME_SMTP[16];
+char V_NAME_SMTP[32];
 ////#define A_NAME_SNMP 0x80040FB
 uint16_t V_PORT_SNMP;
 ////#define A_PORT_SNMP 0x800411B
-char V_LOGIN_SMTP[16];
+char V_LOGIN_SMTP[32];
 ////#define A_LOGIN_SNMP 0x800411D
-char V_PASSWORD_SMTP[16];
+char V_PASSWORD_SMTP[32];
 ////#define A_PASSWORD_SNMP 0x800412B
 char V_GEOM_NAME[32];
 uint8_t V_ID_MAC[8];
@@ -490,7 +506,39 @@ char V_CALL_DATA[16];
 uint8_t V_IP_SNMP[4];
 signed char V_NTP_CIRCL;
 uint8_t V_TYPE_OUT;
-uint8_t V_resv[1669];
+
+
+//new
+uint8_t V_TYPE_LOGIC;
+uint8_t V_EN_WATCHDOG;
+uint8_t V_EN_WATCHDOG_CN_A;
+uint8_t V_EN_WATCHDOG_CN_B;
+uint8_t V_EN_WATCHDOG_CN_C;
+uint8_t V_IP_WDT_ADDR_CN_A[4];
+uint8_t V_IP_WDT_ADDR_CN_B[4];
+uint8_t V_IP_WDT_ADDR_CN_C[4];
+uint16_t V_CT_RES_ALLSTART;
+uint16_t V_T_SEND_PING;
+uint16_t V_TIME_RESEND_PING;
+uint16_t V_MAX_REPID_PING;
+uint16_t V_TIME_RESET_PULSE;
+uint16_t V_PAUSE_RESET_TO_REPID;
+uint16_t V_MAX_RESEND_PACET_RESET;
+uint8_t V_SOST_ERR_RASP;
+uint8_t V_IP_SYSL[4];
+uint8_t V_FLAG_EN_EMAIL;
+uint8_t V_FLAG_DEF_EMAIL;
+
+uint16_t V_FLAG_EMAIL_PORT;
+char V_EMAIL_ADDR[32];
+char V_EMAIL_FROM[32];
+char V_EMAIL_TO[32];
+char V_EMAIL_CC1[32];
+char V_EMAIL_CC2[32];
+char V_EMAIL_CC3[32];
+
+
+uint8_t V_resv[1167];
 
 ////#define A_RESV 0x800413B
 logs_t V_logs_struct;

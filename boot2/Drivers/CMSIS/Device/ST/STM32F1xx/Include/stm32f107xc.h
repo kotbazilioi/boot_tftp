@@ -798,7 +798,7 @@ typedef struct
 
 
 #define FLASH_BASE            0x08000000UL /*!< FLASH base address in the alias region */
-#define FLASH_BANK1_END       0x08020000UL /*!< FLASH END address of bank1 */
+#define FLASH_BANK1_END       0x08040000UL /*!< FLASH END address of bank1 */
 #define SRAM_BASE             0x20000000UL /*!< SRAM base address in the alias region */
 #define PERIPH_BASE           0x40000000UL /*!< Peripheral base address in the alias region */
 

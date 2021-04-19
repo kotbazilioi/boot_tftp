@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4\common\bin\cspybat" -f "E:\ika\development\F107\boot1\boot_tftp\boot2\EWARM\settings\boot2.boot2.general.xcl" --backend -f "E:\ika\development\F107\boot1\boot_tftp\boot2\EWARM\settings\boot2.boot2.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4\common\bin\cspybat" -f "D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\settings\boot2.boot2.general.xcl" --backend -f "D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\settings\boot2.boot2.driver.xcl" 
 }
 else
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4\common\bin\cspybat" -f "E:\ika\development\F107\boot1\boot_tftp\boot2\EWARM\settings\boot2.boot2.general.xcl" --debug_file=$debugfile --backend -f "E:\ika\development\F107\boot1\boot_tftp\boot2\EWARM\settings\boot2.boot2.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4\common\bin\cspybat" -f "D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\settings\boot2.boot2.general.xcl" --debug_file=$debugfile --backend -f "D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\settings\boot2.boot2.driver.xcl" 
 }

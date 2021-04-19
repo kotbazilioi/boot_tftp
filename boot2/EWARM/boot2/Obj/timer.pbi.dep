@@ -1,5 +1,5 @@
 timer.pbi: \
-  E:\ika\development\F107\boot1\boot_tftp\boot2\Middlewares\uIP\timer.c \
-  E:\ika\development\F107\boot1\boot_tftp\boot2\Middlewares\uIP/clock.h \
-  E:\ika\development\F107\boot1\boot2\Core\Src\clock-arch.h \
-  E:\ika\development\F107\boot1\boot_tftp\boot2\Middlewares\uIP/timer.h
+  D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\Middlewares\uIP\timer.c \
+  D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\Middlewares\uIP/clock.h \
+  D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\..\Core\Src\clock-arch.h \
+  D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\Middlewares\uIP/timer.h
