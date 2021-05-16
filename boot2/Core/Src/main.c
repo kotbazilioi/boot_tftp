@@ -24,50 +24,7 @@
 #include "flash_if.h"
 #include "stm32f1xx_hal_wwdg.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
 
-/* USER CODE END Includes */
-
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-
-//////
-//////__root const uint16_t  CRC_APP  @ A_CRC_APP={0};
-//////__root const uint16_t  CRC_BOOT  @ A_CRC_BOOT={0};
-//////__root const uint8_t IP_CONFIG[4] @ A_IP_ADRESS={192,168,0,10};
-//////
-//////__root const uint8_t IP_MASK[4] @ A_IP_MASK={255,255,255,0};
-//////
-//////__root const uint8_t IP_GET[4] @ A_GET_ADRESS={192,168,0,100};
-//////
-//////__root const uint8_t FW1_VER[4] @ A_FW1_VER ={0,0,0,0};
-//////
-//////__root const uint32_t FW1_LEN @ A_FW1_LEN ={0};
-//////
-//////__root const uint8_t FW_LOADER_VER[4] @ A_FW_LOADER_VER={0,01,01,21};
-//////__root const char LOG[2000] @ A_LOG;
-//////
-
-//RTC_HandleTypeDef hrtc;
-
-
-/* USER CODE BEGIN PV */
-
-/* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -79,106 +36,48 @@ void DeSystemClock_Config(void);
 static void MX_WWDG_Init(void);
 static void MX_CRC_Init(void);
 static uint32_t TimeoutCalculation(uint32_t timevalue);
-/* USER CODE BEGIN PFP */
 
-/* USER CODE END PFP */
 WWDG_HandleTypeDef hwwdg;
 
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
 int main(void)
 {
-    ///uint32_t delay;
-
-    FLASH_If_Init();
-  
-  
-  
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
-
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  SystemClock_Config();
-load_struct_flash_data();
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_DMA_Init();
- 
-//  MX_CRC_Init();
- // MX_RTC_Init();
-  MX_ETH_Init();
- 
-  /* USER CODE BEGIN 2 */
-
-  /* USER CODE END 2 */
-  BOOT_EthernetInit();
- // MX_WWDG_Init();
- /// delay = TimeoutCalculation((hwwdg.Init.Counter - hwwdg.Init.Window) + 1) + 1;
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
+ FLASH_If_Init();
+ HAL_Init();
+ SystemClock_Config();
+ load_struct_flash_data();
+ MX_GPIO_Init();
+ MX_DMA_Init();
+ MX_ETH_Init();
+ BOOT_EthernetInit();
+ while (1)
   {
-   //  HAL_Delay(delay);
-    /* USER CODE END WHILE */
-uIP_PeriodicFunc();
-    /* USER CODE BEGIN 3 */
-if (flag_app_start==1)
-{
-  jamp_to_app();
-}
- // HAL_WWDG_Refresh(&hwwdg);
+   uIP_PeriodicFunc();
+   if (flag_app_start==1)
+    {
+     jamp_to_app();
+     
+    }
   }
-
-  /* USER CODE END 3 */
 }
 
-/**
-  * @brief System Clock Configuration
-  * @retval None
-  */
 void SystemClock_Config(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
-
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV8;
-  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.Prediv1Source = RCC_PREDIV1_SOURCE_PLL2;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL8;
-  RCC_OscInitStruct.PLL2.PLL2State = RCC_PLL2_ON;
-  RCC_OscInitStruct.PLL2.PLL2MUL = RCC_PLL2_MUL10;
-  RCC_OscInitStruct.PLL2.HSEPrediv2Value = RCC_HSE_PREDIV2_DIV5;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
+ RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
+ RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV6;
+ RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+ RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ RCC_OscInitStruct.Prediv1Source = RCC_PREDIV1_SOURCE_PLL2;
+ RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+ RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL5;
+ RCC_OscInitStruct.PLL2.PLL2State = RCC_PLL2_ON;
+ RCC_OscInitStruct.PLL2.PLL2MUL = RCC_PLL2_MUL16;
+ RCC_OscInitStruct.PLL2.HSEPrediv2Value = RCC_HSE_PREDIV2_DIV4;
+ if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
   }
@@ -191,22 +90,29 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     Error_Handler();
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
+  PeriphClkInit.PLLI2S.PLLI2SMUL = RCC_PLLI2S_MUL16;
+  PeriphClkInit.PLLI2S.HSEPrediv2Value = RCC_HSE_PREDIV2_DIV4;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
   }
-  HAL_RCC_MCOConfig(RCC_MCO, RCC_MCO1SOURCE_PLL2CLK, RCC_MCODIV_1);
+  HAL_RCC_MCOConfig(RCC_MCO, RCC_MCO1SOURCE_PLL3CLK, RCC_MCODIV_1);
+  /** Configure the Systick interrupt time
+  */
+  __HAL_RCC_HSE_PREDIV2_CONFIG(RCC_HSE_PREDIV2_DIV4);
+  /** Configure the Systick interrupt time
+  */
+  __HAL_RCC_PLLI2S_CONFIG(RCC_PLLI2S_MUL16);
   /** Configure the Systick interrupt time
   */
   __HAL_RCC_PLLI2S_ENABLE();
 }
-
 /**
   * @brief ETH Initialization Function
   * @param None
@@ -214,113 +120,26 @@ void SystemClock_Config(void)
   */
 static void MX_ETH_Init(void)
 {
-
-  /* USER CODE BEGIN ETH_Init 0 */
-
-  /* USER CODE END ETH_Init 0 */
-
-  /* USER CODE BEGIN ETH_Init 1 */
-
-  /* USER CODE END ETH_Init 1 */
   hetho.Instance = ETH;
   hetho.Init.AutoNegotiation = ETH_AUTONEGOTIATION_ENABLE;
   hetho.Init.Speed = ETH_SPEED_100M;
   hetho.Init.DuplexMode = ETH_MODE_FULLDUPLEX;
   hetho.Init.PhyAddress = LAN8742A_PHY_ADDRESS;
-//////  hetho.Init.MACAddr[0] =   0x00;
-//////  hetho.Init.MACAddr[1] =   0x80;
-//////  hetho.Init.MACAddr[2] =   0xE1;
-//////  hetho.Init.MACAddr[3] =   0x12;
-//////  hetho.Init.MACAddr[4] =   0x34;
-//////  hetho.Init.MACAddr[5] =   0x56;
-  hetho.Init.MACAddr[0] =   (uint16_t)idBase0[0];
+  hetho.Init.MACAddr[0] =   00;
   hetho.Init.MACAddr[1] =   ((uint16_t)idBase0[0])>>8;
   hetho.Init.MACAddr[2] =   (uint16_t)idBase1[0];
   hetho.Init.MACAddr[3] =   ((uint16_t)idBase1[0])>>8;
   hetho.Init.MACAddr[4] =   (uint16_t)idBase2[0];
-  hetho.Init.MACAddr[5] =   ((uint16_t)idBase2[0])>>8;
-  
-  
+  hetho.Init.MACAddr[5] =   ((uint16_t)idBase2[0])>>8;  
   hetho.Init.RxMode = ETH_RXINTERRUPT_MODE;
-  hetho.Init.ChecksumMode = ETH_CHECKSUM_BY_HARDWARE;
+  hetho.Init.ChecksumMode = ETH_CHECKSUM_BY_SOFTWARE;
   hetho.Init.MediaInterface = ETH_MEDIA_INTERFACE_RMII;
-
-  /* USER CODE BEGIN MACADDRESS */
-
-  /* USER CODE END MACADDRESS */
-
   if (HAL_ETH_Init(&hetho) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN ETH_Init 2 */
-
-  /* USER CODE END ETH_Init 2 */
-
 }
 
-/**
-  * @brief RTC Initialization Function
-  * @param None
-  * @retval None
-  */
-////static void MX_RTC_Init(void)
-////{
-////
-////  /* USER CODE BEGIN RTC_Init 0 */
-////
-////  /* USER CODE END RTC_Init 0 */
-////
-////  RTC_TimeTypeDef sTime = {0};
-////  RTC_DateTypeDef DateToUpdate = {0};
-////
-////  /* USER CODE BEGIN RTC_Init 1 */
-////
-////  /* USER CODE END RTC_Init 1 */
-////  /** Initialize RTC Only
-////  */
-////  hrtc.Instance = RTC;
-////  hrtc.Init.AsynchPrediv = RTC_AUTO_1_SECOND;
-////  hrtc.Init.OutPut = RTC_OUTPUTSOURCE_NONE;
-////  if (HAL_RTC_Init(&hrtc) != HAL_OK)
-////  {
-////    Error_Handler();
-////  }
-////
-////  /* USER CODE BEGIN Check_RTC_BKUP */
-////
-////  /* USER CODE END Check_RTC_BKUP */
-////
-////  /** Initialize RTC and set the Time and Date
-////  */
-////  sTime.Hours = 0x10;
-////  sTime.Minutes = 0x0;
-////  sTime.Seconds = 0x0;
-////
-////  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
-////  {
-////    Error_Handler();
-////  }
-////  DateToUpdate.WeekDay = RTC_WEEKDAY_MONDAY;
-////  DateToUpdate.Month = RTC_MONTH_JANUARY;
-////  DateToUpdate.Date = 0x1;
-////  DateToUpdate.Year = 0x0;
-////
-////  if (HAL_RTC_SetDate(&hrtc, &DateToUpdate, RTC_FORMAT_BCD) != HAL_OK)
-////  {
-////    Error_Handler();
-////  }
-////  /* USER CODE BEGIN RTC_Init 2 */
-////
-////  /* USER CODE END RTC_Init 2 */
-////
-////}
-////
-/////**
-////  * Enable DMA controller clock
-////  * Configure DMA for memory to memory transfers
-////  *   hdma_memtomem_dma1_channel1
-////  */
 static void MX_DMA_Init(void)
 {
 
@@ -343,22 +162,12 @@ static void MX_DMA_Init(void)
 
 }
 
-/**
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
 
-  
- //     #define BKP_BASE              (0x40000000UL + 0x00006C00UL)
-//#define BKP_DR1_D_Pos                       (0U)                               
-//#define BKP_DR1_D_Msk                       (0xFFFFUL << BKP_DR1_D_Pos)         /*!< 0x0000FFFF */
-//#define BKP_DR1_D                           BKP_DR1_D_Msk                      /*!< Backup data */
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
   uint32_t pvalue = 0U;
- uint32_t backupregister = 0U;
+  uint32_t backupregister = 0U;
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -371,50 +180,58 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, LED_RED_Pin, GPIO_PIN_RESET);
   
-//  GPIO_InitStruct.Pin = LED_GREEN_Pin;
-//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-//  GPIO_InitStruct.Pull = GPIO_NOPULL;
-//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-//  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-//
-//
-// backupregister = (uint32_t)0x40000000UL + 0x00006C00UL+4;
-// // backupregister += (1 * 4U);
-//  pvalue = (*(__IO uint32_t *)(backupregister)) & 0xFFFFUL;
-//  //set_out_port(HAL_RTCEx_BKUPRead(&hrtc,1),1);
-//  if (pvalue==0)
-//  {
-//    if (FW_data.V_TYPE_OUT==0)
-//    {
-//      HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,0);    
-//    }
-//    if (FW_data.V_TYPE_OUT==1)
-//    {
-//      HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,1);    
-//    }    
-//  }
-//  
-//  if (pvalue==1)
-//  {
-//    if (FW_data.V_TYPE_OUT==0)
-//    {
-//      HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,1);    
-//    }
-//    if (FW_data.V_TYPE_OUT==1)
-//    {
-//      HAL_GPIO_WritePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin,0);    
-//    }    
-//  }
+/* USER CODE BEGIN ETH_MspInit 0 */
+
+  /* USER CODE END ETH_MspInit 0 */
+    /* Enable Peripheral clock */
+    __HAL_RCC_ETH_CLK_ENABLE();
+
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    /**ETH GPIO Configuration
+    PC1     ------> ETH_MDC
+    PA1     ------> ETH_REF_CLK
+    PA2     ------> ETH_MDIO
+    PA7     ------> ETH_CRS_DV
+    PC4     ------> ETH_RXD0
+    PC5     ------> ETH_RXD1
+    PB10     ------> ETH_RX_ER
+    PB11     ------> ETH_TX_EN
+    PB12     ------> ETH_TXD0
+    PB13     ------> ETH_TXD1
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_1;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_7;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_2;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_10;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
   
-  /*Configure GPIO pins : LED_GREEN_Pin LED_RED_Pin */
- 
-  
-  /*Configure GPIO pin : PHY_RST_Pin */
-  GPIO_InitStruct.Pin = PHY_RST_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
-  HAL_GPIO_Init(PHY_RST_GPIO_Port, &GPIO_InitStruct);
   
    /*Configure GPIO pins : LED_GREEN_Pin LED_RED_Pin */
   GPIO_InitStruct.Pin = LED_RED_Pin;
@@ -479,38 +296,30 @@ void DeSystemClock_Config(void)
   */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  /* USER CODE BEGIN Callback 0 */
-
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM1) {
-    HAL_IncTick();
-  
+ if (htim->Instance == TIM1) 
+ {
+  HAL_IncTick();
   timer_uip++;
-	if((timer_uip%500)==0)
-	{
-		fPassed500ms=true;
-		if(timer_uip >= 10000)
-		{
-			fPassed10s=true;
-			timer_uip=0;
-		}
-              //  HAL_GPIO_TogglePin (GPIO_TypeDef * GPIOx, uint16_t GPIO_Pin)
-                  HAL_GPIO_TogglePin (LED_RED_GPIO_Port, LED_RED_Pin);
-                
-	}
-        if (timer_to_app<TIME_TO_APP)
-          {
-          timer_to_app++;
-          }
-        else
-          {
-          timer_to_app=0;
-           flag_app_start=1;
-          }
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
+  if((timer_uip%500)==0)
+   {
+    fPassed500ms=true;
+    if(timer_uip >= 10000)
+     {
+      fPassed10s=true;
+      timer_uip=0;
+     }
+    HAL_GPIO_TogglePin (LED_RED_GPIO_Port, LED_RED_Pin);
+   }
+  if (timer_to_app<TIME_TO_APP)
+   {
+    timer_to_app++;
+   }
+  else
+   {
+    timer_to_app=0;
+    flag_app_start=1;
+   }
+ }
 }
 static void MX_WWDG_Init(void)
 {

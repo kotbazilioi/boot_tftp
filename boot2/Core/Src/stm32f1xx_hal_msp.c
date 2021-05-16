@@ -112,7 +112,7 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef* heth)
     PB12     ------> ETH_TXD0
     PB13     ------> ETH_TXD1
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_1;
+       GPIO_InitStruct.Pin = GPIO_PIN_1;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
@@ -132,19 +132,16 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef* heth)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+    GPIO_InitStruct.Pin = GPIO_PIN_10;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
     GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    /* ETH interrupt Init */
-    HAL_NVIC_SetPriority(ETH_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(ETH_IRQn);
-    HAL_NVIC_SetPriority(ETH_WKUP_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(ETH_WKUP_IRQn);
-  /* USER CODE BEGIN ETH_MspInit 1 */
-
-  /* USER CODE END ETH_MspInit 1 */
   }
 
 }

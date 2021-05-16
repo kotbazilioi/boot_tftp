@@ -132,7 +132,7 @@ typedef unsigned short uip_stats_t;
  *
  * \hideinitializer
  */
-#define UIP_CONF_UDP_CONNS			 2
+#define UIP_CONF_UDP_CONNS			 1
 
 /**
  * UDP checksums on or off

@@ -229,78 +229,63 @@ void uip_udp_appcall(void)
 //
 //
 //==============================================================================
-void uIP_PeriodicFunc(void) {
-	uint32_t i;
-       
-//// if ( data_file.nframe16==13)
-////{
-//// data_file.nframe16= data_file.nframe16;
-////}
-  low_level_input(&hetho);
-  
-
-if(uip_len != NULL)
-
+void uIP_PeriodicFunc(void) 
+{
+ uint32_t i;
+ low_level_input(&hetho);
+ if(uip_len != NULL)
+  {
+   if(BUF->type == (uint16_t)(uint16_t)HTONS(UIP_ETHTYPE_IP))
     {
-      
-      
-   
-		if(BUF->type == (uint16_t)(uint16_t)HTONS(UIP_ETHTYPE_IP))
-                 {
-			uip_arp_ipin();
-			uip_input();
-			if(uip_len > 0)
-			{
-				uip_arp_out();
-				TransmitPacket();
-			}
-		}
-                else if(BUF->type == (uint16_t)(uint16_t)HTONS(UIP_ETHTYPE_ARP));
-                        {
-                            uip_arp_arpin();
-                          //  opcode_out = ARP_REQUEST;
-                            if(uip_len > 0)
-                              {
-				TransmitPacket();
-                              }
-                        }
+     uip_arp_ipin();
+     uip_input();
+     if(uip_len > 0)
+      {
+        
+       uip_arp_out();
+       TransmitPacket();
+      }
+    }
+   else if(BUF->type == (uint16_t)(uint16_t)HTONS(UIP_ETHTYPE_ARP));
+    {
+     uip_arp_arpin();
+     if(uip_len > 0)
+      {
+        TransmitPacket();
+      }
+    }
+  }
+ else     if(fPassed500ms)
+  {
+   fPassed500ms=false;
+   for(i = 0; i < UIP_CONNS; i++)
+    {
+      uip_periodic(i);
+      if(uip_len > 0)
+      {
+       uip_arp_out();
+       TransmitPacket();
+      }
+    }
+#if UIP_UDP
+ for(i = 0; i < UIP_UDP_CONNS; i++)
+  {
+   uip_udp_periodic(i);
+   if(uip_len > 0)
+   {
+    uip_arp_out();
+    TransmitPacket();
    }
-  else     if(fPassed500ms)
-	{
-		fPassed500ms=false;
-		for(i = 0; i < UIP_CONNS; i++)
-		{
-			uip_periodic(i);
-			if(uip_len > 0)
-			{
-				uip_arp_out();
-				TransmitPacket();
-			}
-                }
-
-          #if UIP_UDP
-		for(i = 0; i < UIP_UDP_CONNS; i++)
-		{
-			uip_udp_periodic(i);
-			if(uip_len > 0)
-			{
-				uip_arp_out();
-				TransmitPacket();
-			}
-		}
-         #endif /* UIP_UDP */
-
-		if(fPassed10s)
-		{	
-			fPassed10s=false;
-			uip_arp_timer();
-		}
-	}
+  }
+#endif /* UIP_UDP */
+  if(fPassed10s)
+   {	
+    fPassed10s=false;
+    uip_arp_timer();
+   }
+ }
 }
-//==============================================================================
-//
-//
-//==============================================================================
+
 void TransmitPacket(void)
 {
  if (flag_tftp==1)

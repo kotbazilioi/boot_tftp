@@ -508,10 +508,9 @@ uint8_t load_struct_flash_data (void)
 {
 
       
-   if ((CRC_BOOT!= crc16_ccitt((uint8_t*)IP_CONFIG,24))||(CRC_BOOT==0))   
+   if ((CRC_BOOT!= crc16_ccitt((uint8_t*)IP_CONFIG,12))||(CRC_BOOT==0))   
    {
-    FW_data.V_CRC_APP=*((uint16_t *)A_CRC_APP);
-      
+     FW_data.V_CRC_APP=*((uint16_t *)A_CRC_APP);      
      FW_data.V_IP_CONFIG[0]=192;
      FW_data.V_IP_CONFIG[1]=168;
      FW_data.V_IP_CONFIG[2]=3;
@@ -530,7 +529,7 @@ uint8_t load_struct_flash_data (void)
      FW_data.V_FW1_VER[0]=0;
      FW_data.V_FW1_VER[1]=0;
      FW_data.V_FW1_VER[2]=0;
-     FW_data.V_FW1_VER[3]=1;
+     FW_data.V_FW1_VER[3]=0;
      FW_data.V_FW1_LEN=0;
      FW_data.V_BOOT_VER = BOOT_VER_FW;
      FW_data.V_CRC_DATA = 0;
@@ -557,8 +556,7 @@ uint8_t load_struct_flash_data (void)
      FW_data.V_FLAG_EN_WATCHMAN =0;
      memset((uint8_t*)&FW_data.V_EMAIL_ERR,0,32);
      memset((uint8_t*)&FW_data.V_D_TIME,61,sizeof(FW_data.V_D_TIME));
-     memset((uint8_t*)&FW_data.V_RD_DATA,61,sizeof(FW_data.V_RD_DATA));
-     
+     memset((uint8_t*)&FW_data.V_RD_DATA,61,sizeof(FW_data.V_RD_DATA));    
      
      FW_data.V_IP_PING_TIME = 9999;
      FW_data.V_TIME_SEND = 9999;
@@ -632,9 +630,6 @@ uint8_t load_struct_flash_data (void)
      
      FW_data.V_NTP_CIRCL = 4;
      
-      FW_data.V_CRC_BOOT=*((uint16_t *)A_CRC_DATA_BOOT);    
-     FW_data.V_logs_struct.CRC16 = crc16_ccitt((uint8_t*)&(FW_data.V_logs_struct.log_reple[0]),2000);
-     FW_data.V_CRC_DATA=crc16_ccitt((uint8_t*)&(FW_data.V_DHCP),2018);
      
        FW_data.V_TYPE_LOGIC=0;
        FW_data.V_EN_WATCHDOG=0;
@@ -663,6 +658,12 @@ uint8_t load_struct_flash_data (void)
        FW_data.V_PAUSE_RESET_TO_REPID=15;
        FW_data.V_MAX_RESEND_PACET_RESET=0;
      
+   //  FW_data.V_CRC_BOOT=*((uint16_t *)A_CRC_DATA_BOOT);    
+     FW_data.V_CRC_BOOT=crc16_ccitt(((uint8_t*)&(FW_data.V_IP_CONFIG[0])),12);
+     FW_data.V_logs_struct.CRC16 = crc16_ccitt((uint8_t*)&(FW_data.V_logs_struct.log_reple[0]),2000);
+     FW_data.V_CRC_DATA=crc16_ccitt((uint8_t*)&(FW_data.V_DHCP),2018);
+     
+     
      
      save_data_blok(3,(uint32_t*)&FW_data.V_CRC_APP); 
 
@@ -681,13 +682,14 @@ uint16_t crcapp=crc16_ccitt((uint8_t*)A_START_APP,FW_LEN);
  memcpy((uint32_t *)(&FW_data.V_CRC_APP), (uint32_t *)A_CRC_APP, 1024);
  
  FW_data.V_CRC_APP=crcapp;
- FW_data.V_CRC_BOOT=crc16_ccitt((uint8_t*)&(FW_data.V_IP_CONFIG[0]),24);    
+ FW_data.V_CRC_BOOT=crc16_ccitt((uint8_t*)&(FW_data.V_IP_CONFIG[0]),12);    
  save_data_blok(3,(uint32_t*)&FW_data.V_CRC_APP); 
 
 }
 uint8_t Comp_CRC_APP(void)
 {
-  uint16_t crcapp=crc16_ccitt((uint8_t*)A_START_APP,FW_LEN);
+  uint32_t len = FW_LEN;
+   uint16_t crcapp=crc16_ccitt((uint8_t*)A_START_APP,len);
   memcpy((uint32_t *)(&FW_data.V_CRC_APP), (uint32_t *)A_CRC_APP, 1024);
   if ((crcapp==FW_data.V_CRC_APP)&&(crcapp!=0))
     {
