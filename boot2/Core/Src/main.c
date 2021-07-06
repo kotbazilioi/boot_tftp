@@ -24,7 +24,7 @@
 #include "flash_if.h"
 #include "stm32f1xx_hal_wwdg.h"
 
-
+RTC_HandleTypeDef hrtc;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -41,14 +41,28 @@ WWDG_HandleTypeDef hwwdg;
 
 int main(void)
 {
+ MX_GPIO_Init();
+
+ 
+
  FLASH_If_Init();
  HAL_Init();
  SystemClock_Config();
+
  load_struct_flash_data();
  MX_GPIO_Init();
  MX_DMA_Init();
  MX_ETH_Init();
  BOOT_EthernetInit();
+//  MX_RTC_Init();
+  step_boot=1;
+  if (HAL_RTCEx_BKUPRead(&hrtc,2)!=0)
+  {
+   step_boot=4;
+   timer_to_app=0;
+   flag_app_start=0;
+   HAL_RTCEx_BKUPWrite(&hrtc,2,1);
+  }
  while (1)
   {
    uIP_PeriodicFunc();
@@ -112,6 +126,64 @@ void SystemClock_Config(void)
   /** Configure the Systick interrupt time
   */
   __HAL_RCC_PLLI2S_ENABLE();
+}
+void MX_RTC_Init(void)
+{
+
+  /* USER CODE BEGIN RTC_Init 0 */
+
+  /* USER CODE END RTC_Init 0 */
+
+  RTC_TimeTypeDef sTime = {0};
+  RTC_DateTypeDef DateToUpdate = {0};
+
+  /* USER CODE BEGIN RTC_Init 1 */
+
+  /* USER CODE END RTC_Init 1 */
+  /** Initialize RTC Only
+  */
+  hrtc.Instance = RTC;
+  hrtc.Init.AsynchPrediv = RTC_AUTO_1_SECOND;
+  hrtc.Init.OutPut = RTC_OUTPUTSOURCE_NONE;
+  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /* USER CODE BEGIN Check_RTC_BKUP */
+
+  /* USER CODE END Check_RTC_BKUP */
+
+  /** Initialize RTC and set the Time and Date
+  */
+  
+  
+  
+  HAL_RTC_GetTime (&hrtc,&sTime,RTC_FORMAT_BIN);
+  
+  
+//  sTime.Hours = 0x10;
+//  sTime.Minutes = 0x12;
+//  sTime.Seconds = 0x22;
+
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  
+  
+  HAL_RTC_GetDate (&hrtc,&DateToUpdate,RTC_FORMAT_BIN);
+//  DateToUpdate.WeekDay = RTC_WEEKDAY_FRIDAY;
+//  DateToUpdate.Month = RTC_MONTH_DECEMBER;
+//  DateToUpdate.Date = 0x12;
+if (DateToUpdate.Year <20)
+{
+  DateToUpdate.Year = 20;
+}
+  if (HAL_RTC_SetDate(&hrtc, &DateToUpdate, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    Error_Handler();
+  }
 }
 /**
   * @brief ETH Initialization Function
@@ -308,17 +380,80 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
       fPassed10s=true;
       timer_uip=0;
      }
-    HAL_GPIO_TogglePin (LED_RED_GPIO_Port, LED_RED_Pin);
+//    HAL_GPIO_TogglePin (LED_RED_GPIO_Port, LED_RED_Pin);
    }
-  if (timer_to_app<TIME_TO_APP)
-   {
-    timer_to_app++;
-   }
+  
+  if (step_boot==4)
+    {
+     if (ct_led_timer>3000)
+      {
+        HAL_GPIO_TogglePin (LED_RED_GPIO_Port, LED_RED_Pin);
+        ct_led_timer=0;
+      }
+     else
+     {
+      ct_led_timer++;
+     }
+    }
   else
-   {
-    timer_to_app=0;
-    flag_app_start=1;
-   }
+    {
+      if (ct_led_timer>500)
+      {
+        HAL_GPIO_TogglePin (LED_RED_GPIO_Port, LED_RED_Pin);
+        ct_led_timer=0;
+      }
+       else
+     {
+      ct_led_timer++;
+     }
+    }
+  
+  if((HAL_GPIO_ReadPin(IN_SWICH_GPIO_Port,IN_SWICH_Pin)==1)&&(step_boot==1))
+    {
+      timer_to_app=0;
+      flag_app_start=1;
+    }
+   if((HAL_GPIO_ReadPin(IN_SWICH_GPIO_Port,IN_SWICH_Pin)==0)&&(step_boot==1))
+    {
+      step_boot=2;
+      timer_start_app++;
+    }
+    if((HAL_GPIO_ReadPin(IN_SWICH_GPIO_Port,IN_SWICH_Pin)==0)&&(step_boot==2))
+    {      
+      timer_start_app++;
+    }
+   if((HAL_GPIO_ReadPin(IN_SWICH_GPIO_Port,IN_SWICH_Pin)==1)&&(step_boot==2))
+    {
+      if(timer_start_app<5000)
+        {
+          step_boot=4;
+          timer_to_app=0;
+        }
+      else
+        {
+          step_boot=3;
+          load_def_data();
+          flag_app_start=1;
+          timer_to_app=0;
+        }
+      
+    }
+ 
+    
+  
+  
+  if (step_boot==4)
+  {
+    if (timer_to_app<TIME_TO_APP)
+      {
+        timer_to_app++;
+      }
+    else
+      {
+        timer_to_app=0;
+        flag_app_start=1;
+      }
+  }
  }
 }
 static void MX_WWDG_Init(void)

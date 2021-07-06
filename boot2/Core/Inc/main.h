@@ -64,7 +64,10 @@ void Error_Handler(void);
 #define LED_GREEN_GPIO_Port GPIOC
 #define LED_RED_Pin GPIO_PIN_7
 #define LED_RED_GPIO_Port GPIOC
-#define TIME_TO_APP 1000*20
+#define TIME_TO_APP 1000*30
+
+#define IN_SWICH_Pin GPIO_PIN_8
+#define IN_SWICH_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

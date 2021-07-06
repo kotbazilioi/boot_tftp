@@ -354,6 +354,10 @@ uint32_t FLASH_If_Write(uint32_t destination, uint32_t *p_source, uint32_t lengt
 uint32_t FLASH_If_WriteProtectionConfig(uint32_t protectionstate);
 extern uint8_t flag_app_start;
 extern   uint32_t timer_to_app;
+extern uint32_t timer_start_app;
+extern uint32_t flag_start_wait;
+extern uint8_t step_boot ;
+extern uint32_t ct_led_timer;
 //extern CRC_HandleTypeDef crc_hcrc;
 typedef struct 
 {
@@ -564,6 +568,7 @@ typedef  void (*pFunction)(void);
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 uint8_t frame_in_to_flash(uint8_t* data, uint8_t* nframe, uint16_t len_frame);
 void jamp_to_app (void);
+void load_def_data (void);
 uint8_t load_struct_flash_data (void);
 uint8_t save_data_blok (uint8_t N_sector,uint32_t* struct_to);
 void Save_CRC_APP (void);

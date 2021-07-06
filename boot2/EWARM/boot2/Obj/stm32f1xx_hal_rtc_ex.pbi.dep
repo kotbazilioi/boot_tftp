@@ -32,6 +32,8 @@ stm32f1xx_hal_rtc_ex.pbi: \
   D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM/../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_flash.h \
   D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM/../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
   D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM/../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_pwr.h \
+  D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM/../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_rtc.h \
+  D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM/../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc_ex.h \
   D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM/../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_tim.h \
   D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM/../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
   D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM/../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_wwdg.h
