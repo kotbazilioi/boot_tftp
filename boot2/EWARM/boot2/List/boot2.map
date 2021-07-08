@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V8.42.1.236/W32 for ARM                  06/Jul/2021  23:26:52
+# IAR ELF Linker V8.42.1.236/W32 for ARM                  08/Jul/2021  22:11:42
 # Copyright 2007-2019 IAR Systems AB.
 #
 #    Output file  =
@@ -8,7 +8,7 @@
 #    Map file     =
 #        D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\boot2\List\boot2.map
 #    Command line =
-#        -f C:\Users\ivanov\AppData\Local\Temp\EWCFF2.tmp
+#        -f C:\Users\ivanov\AppData\Local\Temp\EW2696.tmp
 #        (D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\boot2\Obj\clock-arch.o
 #        D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\boot2\Obj\crc16.o
 #        D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\boot2\Obj\ethernet.o
@@ -241,37 +241,37 @@ Absolute sections, part 2 of 2:             0x7d0
     .data            inited   0x2000'012c     0x1  uip_arp.o [1]
                             - 0x2000'012d   0x12d
 
-"P2", part 2 of 3:                         0xa488
+"P2", part 2 of 3:                         0xa54c
   .bss               zero     0x2000'0130  0x608c  ethernet.o [1]
   .bss               zero     0x2000'61bc  0x1e8c  uip.o [1]
-  .bss               zero     0x2000'8048   0xfe4  flash_if.o [1]
-  .bss               zero     0x2000'902c   0x818  flash_if.o [1]
-  .bss               zero     0x2000'9844   0x60c  uip.o [1]
-  .bss               zero     0x2000'9e50   0x5e0  uip.o [1]
-  .bss               zero     0x2000'a430    0x60  uip_arp.o [1]
-  .bss               zero     0x2000'a490    0x48  stm32f1xx_hal_timebase_tim.o [1]
-  .bss               zero     0x2000'a4d8    0x44  ethernet.o [1]
-  .bss               zero     0x2000'a51c    0x38  uip.o [1]
-  .bss               zero     0x2000'a554    0x14  main.o [1]
-  .bss               zero     0x2000'a568    0x20  stm32f1xx_hal_flash.o [1]
-  .bss               zero     0x2000'a588     0x8  flash_if.o [1]
-  .bss               zero     0x2000'a590     0x8  uip.o [1]
-  .bss               zero     0x2000'a598     0x8  uip_arp.o [1]
-  .bss               zero     0x2000'a5a0     0x4  flash_if.o [1]
-  .bss               zero     0x2000'a5a4     0x4  flash_if.o [1]
-  .bss               zero     0x2000'a5a8     0x4  stm32f1xx_it.o [1]
-  .bss               zero     0x2000'a5ac     0x4  uip.o [1]
-  .bss               zero     0x2000'a5b0     0x4  uip.o [1]
-  .bss               zero     0x2000'a5b4     0x1  flash_if.o [1]
-  .bss               zero     0x2000'a5b5     0x1  stm32f1xx_it.o [1]
-  .bss               zero     0x2000'a5b6     0x1  stm32f1xx_it.o [1]
-  .bss               zero     0x2000'a5b7     0x1  uip_arp.o [1]
-                            - 0x2000'a5b8  0xa488
+  .bss               zero     0x2000'8048  0x10a8  flash_if.o [1]
+  .bss               zero     0x2000'90f0   0x818  flash_if.o [1]
+  .bss               zero     0x2000'9908   0x60c  uip.o [1]
+  .bss               zero     0x2000'9f14   0x5e0  uip.o [1]
+  .bss               zero     0x2000'a4f4    0x60  uip_arp.o [1]
+  .bss               zero     0x2000'a554    0x48  stm32f1xx_hal_timebase_tim.o [1]
+  .bss               zero     0x2000'a59c    0x44  ethernet.o [1]
+  .bss               zero     0x2000'a5e0    0x38  uip.o [1]
+  .bss               zero     0x2000'a618    0x20  stm32f1xx_hal_flash.o [1]
+  .bss               zero     0x2000'a638    0x14  main.o [1]
+  .bss               zero     0x2000'a64c     0x8  flash_if.o [1]
+  .bss               zero     0x2000'a654     0x8  uip.o [1]
+  .bss               zero     0x2000'a65c     0x8  uip_arp.o [1]
+  .bss               zero     0x2000'a664     0x4  flash_if.o [1]
+  .bss               zero     0x2000'a668     0x4  flash_if.o [1]
+  .bss               zero     0x2000'a66c     0x4  stm32f1xx_it.o [1]
+  .bss               zero     0x2000'a670     0x4  uip.o [1]
+  .bss               zero     0x2000'a674     0x4  uip.o [1]
+  .bss               zero     0x2000'a678     0x1  flash_if.o [1]
+  .bss               zero     0x2000'a679     0x1  stm32f1xx_it.o [1]
+  .bss               zero     0x2000'a67a     0x1  stm32f1xx_it.o [1]
+  .bss               zero     0x2000'a67b     0x1  uip_arp.o [1]
+                            - 0x2000'a67c  0xa54c
 
 "P2", part 3 of 3:                         0x2000
-  CSTACK                      0x2000'a5b8  0x2000  <Block>
-    CSTACK           uninit   0x2000'a5b8  0x2000  <Block tail>
-                            - 0x2000'c5b8  0x2000
+  CSTACK                      0x2000'a680  0x2000  <Block>
+    CSTACK           uninit   0x2000'a680  0x2000  <Block tail>
+                            - 0x2000'c680  0x2000
 
 Unused ranges:
 
@@ -280,7 +280,8 @@ Unused ranges:
    0x800'48b1   0x800'4ffe   0x74e
    0x800'4fff   0x800'4fff     0x1
   0x2000'012d  0x2000'012f     0x3
-  0x2000'c5b8  0x2000'ffff  0x3a48
+  0x2000'a67c  0x2000'a67f     0x4
+  0x2000'c680  0x2000'ffff  0x3980
 
 
 *******************************************************************************
@@ -290,8 +291,8 @@ Unused ranges:
           Address      Size
           -------      ----
 Zero (__iar_zero_init3)
-    1 destination range, total size 0xa488:
-          0x2000'0130  0xa488
+    1 destination range, total size 0xa54c:
+          0x2000'0130  0xa54c
 
 Copy/packbits (__iar_packbits_init_single3)
     1 source range, total size 0x25 (12% of destination):
@@ -315,7 +316,7 @@ command line/config:
 D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\boot2\Obj: [1]
     crc16.o                            52      512
     ethernet.o                        772            24'784
-    flash_if.o                      2'672        1    6'169    2'028
+    flash_if.o                      2'672        1    6'365    2'028
     main.o                          1'404                20
     startup_stm32f107xc.o             584
     stm32f1xx_hal.o                   142        1       12
@@ -338,7 +339,7 @@ D:\ika\development\NETPING_PROJECT\59\boot_tftp\boot2\EWARM\boot2\Obj: [1]
     uip.o                           2'988            10'944
     uip_arp.o                         832        1      106
     ----------------------------------------------------------------
-    Total:                         16'778      556   42'413    2'028
+    Total:                         16'778      556   42'609    2'028
 
 dl7M_tlf.a: [2]
     XShttio.o                           8        1        8
@@ -373,7 +374,7 @@ shb_l.a: [4]
     Gaps                               16        2
     Linker created                              32    8'192
 --------------------------------------------------------------------
-    Grand Total:                   18'018      591   50'613    2'028
+    Grand Total:                   18'018      591   50'809    2'028
 
 
 *******************************************************************************
@@ -392,8 +393,8 @@ BOOT_VER                 0x800'5018     0x4  Data  Gb  flash_if.o [1]
 BusFault_Handler         0x800'4639     0x6  Code  Gb  stm32f1xx_it.o [1]
 CRC_APP                  0x800'5000     0x2  Data  Gb  flash_if.o [1]
 CRC_BOOT                 0x800'5002     0x2  Data  Gb  flash_if.o [1]
-CSTACK$$Base            0x2000'a5b8           --   Gb  - Linker created -
-CSTACK$$Limit           0x2000'c5b8           --   Gb  - Linker created -
+CSTACK$$Base            0x2000'a680           --   Gb  - Linker created -
+CSTACK$$Limit           0x2000'c680           --   Gb  - Linker created -
 Comp_CRC_APP             0x800'2ec1    0x2e  Code  Gb  flash_if.o [1]
 DMARxDscrTab            0x2000'017c    0x80  Data  Gb  ethernet.o [1]
 DMATxDscrTab            0x2000'01fc    0x80  Data  Gb  ethernet.o [1]
@@ -426,7 +427,7 @@ FLASH_WaitForLastOperation
                          0x800'36d5    0x52  Code  Gb  stm32f1xx_hal_flash.o [1]
 FW_LEN                   0x800'5014     0x4  Data  Gb  flash_if.o [1]
 FW_VER                   0x800'5010     0x4  Data  Gb  flash_if.o [1]
-FW_data                 0x2000'8048   0xfe4  Data  Gb  flash_if.o [1]
+FW_data                 0x2000'8048  0x10a8  Data  Gb  flash_if.o [1]
 HAL_DMA_DeInit           0x800'38fd    0x82  Code  Gb  stm32f1xx_hal_dma.o [1]
 HAL_DMA_Init             0x800'3875    0x88  Code  Gb  stm32f1xx_hal_dma.o [1]
 HAL_DeInit               0x800'3f31    0x20  Code  Gb  stm32f1xx_hal.o [1]
@@ -552,36 +553,36 @@ __vector_table           0x800'0000          Data  Gb  startup_stm32f107xc.o [1]
 _call_main               0x800'4731          Code  Gb  cmain.o [3]
 _exit                    0x800'474d          Code  Gb  cexit.o [3]
 _main                    0x800'473f          Code  Gb  cmain.o [3]
-arp_table               0x2000'a430    0x60  Data  Lc  uip_arp.o [1]
-arptime                 0x2000'a59a     0x1  Data  Lc  uip_arp.o [1]
+arp_table               0x2000'a4f4    0x60  Data  Lc  uip_arp.o [1]
+arptime                 0x2000'a65e     0x1  Data  Lc  uip_arp.o [1]
 broadcast_ethaddr        0x800'13ac     0x8  Data  Lc  uip_arp.o [1]
-c                       0x2000'a525     0x1  Data  Lc  uip.o [1]
-c                       0x2000'a599     0x1  Data  Lc  uip_arp.o [1]
+c                       0x2000'a5e9     0x1  Data  Lc  uip.o [1]
+c                       0x2000'a65d     0x1  Data  Lc  uip_arp.o [1]
 chksum                   0x800'01b1    0x3e  Code  Lc  uip.o [1]
 crc16_ccitt              0x800'3f59    0x34  Code  Gb  crc16.o [1]
 crc16tab                 0x800'4414   0x200  Data  Lc  crc16.o [1]
-ct_led_timer            0x2000'a5a4     0x4  Data  Gb  flash_if.o [1]
-data_file               0x2000'902c   0x818  Data  Gb  flash_if.o [1]
+ct_led_timer            0x2000'a668     0x4  Data  Gb  flash_if.o [1]
+data_file               0x2000'90f0   0x818  Data  Gb  flash_if.o [1]
 exit                     0x800'4747     0x4  Code  Gb  exit.o [2]
-fPassed10s              0x2000'a5b6     0x1  Data  Gb  stm32f1xx_it.o [1]
-fPassed500ms            0x2000'a5b5     0x1  Data  Gb  stm32f1xx_it.o [1]
-flag_app_start          0x2000'a588     0x1  Data  Gb  flash_if.o [1]
-flag_tftp               0x2000'a5b7     0x1  Data  Gb  uip_arp.o [1]
+fPassed10s              0x2000'a67a     0x1  Data  Gb  stm32f1xx_it.o [1]
+fPassed500ms            0x2000'a679     0x1  Data  Gb  stm32f1xx_it.o [1]
+flag_app_start          0x2000'a64c     0x1  Data  Gb  flash_if.o [1]
+flag_tftp               0x2000'a67b     0x1  Data  Gb  uip_arp.o [1]
 frame_in_to_flash        0x800'2689   0x15a  Code  Gb  flash_if.o [1]
 hdma_ETHtomem_dma1_channel1
-                        0x2000'a4d8    0x44  Data  Gb  ethernet.o [1]
+                        0x2000'a59c    0x44  Data  Gb  ethernet.o [1]
 hetho                   0x2000'0130    0x48  Data  Gb  ethernet.o [1]
-hrtc                    0x2000'a554    0x14  Data  Gb  main.o [1]
-htim1                   0x2000'a490    0x48  Data  Gb  stm32f1xx_hal_timebase_tim.o [1]
-i                       0x2000'a598     0x1  Data  Lc  uip_arp.o [1]
+hrtc                    0x2000'a638    0x14  Data  Gb  main.o [1]
+htim1                   0x2000'a554    0x48  Data  Gb  stm32f1xx_hal_timebase_tim.o [1]
+i                       0x2000'a65c     0x1  Data  Lc  uip_arp.o [1]
 idBase0                 0x2000'0000     0x4  Data  Gb  flash_if.o [1]
 idBase1                 0x2000'0004     0x4  Data  Gb  flash_if.o [1]
 idBase2                 0x2000'0008     0x4  Data  Gb  flash_if.o [1]
-ipaddr                  0x2000'a59c     0x4  Data  Lc  uip_arp.o [1]
-ipid                    0x2000'a530     0x2  Data  Lc  uip.o [1]
-iss                     0x2000'a51c     0x4  Data  Lc  uip.o [1]
+ipaddr                  0x2000'a660     0x4  Data  Lc  uip_arp.o [1]
+ipid                    0x2000'a5f4     0x2  Data  Lc  uip.o [1]
+iss                     0x2000'a5e0     0x4  Data  Lc  uip.o [1]
 jamp_to_app              0x800'25e9    0xa0  Code  Gb  flash_if.o [1]
-lastport                0x2000'a532     0x2  Data  Lc  uip.o [1]
+lastport                0x2000'a5f6     0x2  Data  Lc  uip.o [1]
 load_def_data            0x800'284b   0x310  Code  Gb  flash_if.o [1]
 load_struct_flash_data   0x800'2b5d   0x332  Code  Gb  flash_if.o [1]
 low_level_input          0x800'0fcf    0x5a  Code  Lc  ethernet.o [1]
@@ -589,51 +590,51 @@ main                     0x800'3995    0x6a  Code  Gb  main.o [1]
 memset                   0x800'2fb5    0x14  Code  Gb  memset.o [3]
 newdata                  0x800'0e83     0x2  Code  Gb  ethernet.o [1]
 opcode_out              0x2000'012c     0x1  Data  Gb  uip_arp.o [1]
-opt                     0x2000'a526     0x1  Data  Lc  uip.o [1]
-pFlash                  0x2000'a568    0x20  Data  Gb  stm32f1xx_hal_flash.o [1]
+opt                     0x2000'a5ea     0x1  Data  Lc  uip.o [1]
+pFlash                  0x2000'a618    0x20  Data  Gb  stm32f1xx_hal_flash.o [1]
 save_data_blok           0x800'27e3    0x68  Code  Gb  flash_if.o [1]
 size_block              0x2000'0020     0x2  Data  Gb  tftp.o [1]
 srem_addr               0x2000'001e     0x2  Data  Gb  tftp.o [1]
 srport                  0x2000'0022     0x2  Data  Gb  tftp.o [1]
-step_boot               0x2000'a5b4     0x1  Data  Gb  flash_if.o [1]
+step_boot               0x2000'a678     0x1  Data  Gb  flash_if.o [1]
 tftp_nblock             0x2000'001c     0x2  Data  Gb  tftp.o [1]
-timer_start_app         0x2000'a5a0     0x4  Data  Gb  flash_if.o [1]
-timer_to_app            0x2000'a58c     0x4  Data  Gb  flash_if.o [1]
-timer_uip               0x2000'a5a8     0x4  Data  Gb  stm32f1xx_it.o [1]
-tmp16                   0x2000'a534     0x2  Data  Lc  uip.o [1]
-tmpage                  0x2000'a59b     0x1  Data  Lc  uip_arp.o [1]
+timer_start_app         0x2000'a664     0x4  Data  Gb  flash_if.o [1]
+timer_to_app            0x2000'a650     0x4  Data  Gb  flash_if.o [1]
+timer_uip               0x2000'a66c     0x4  Data  Gb  stm32f1xx_it.o [1]
+tmp16                   0x2000'a5f8     0x2  Data  Lc  uip.o [1]
+tmpage                  0x2000'a65f     0x1  Data  Lc  uip_arp.o [1]
 uIP_PeriodicFunc         0x800'0ec1    0xae  Code  Gb  ethernet.o [1]
 udp_conn                0x2000'0178     0x4  Data  Gb  ethernet.o [1]
 udp_newdata              0x800'19a5    0x7c  Code  Gb  tftp.o [1]
-uip_acc32               0x2000'a520     0x4  Data  Gb  uip.o [1]
+uip_acc32               0x2000'a5e4     0x4  Data  Gb  uip.o [1]
 uip_add32                0x800'0151    0x60  Code  Gb  uip.o [1]
 uip_add_rcv_nxt          0x800'0349    0x2a  Code  Lc  uip.o [1]
 uip_appcall              0x800'0e4f    0x34  Code  Gb  ethernet.o [1]
-uip_appdata             0x2000'a544     0x4  Data  Gb  uip.o [1]
+uip_appdata             0x2000'a608     0x4  Data  Gb  uip.o [1]
 uip_arp_arpin            0x800'11b5    0xba  Code  Gb  uip_arp.o [1]
 uip_arp_init             0x800'1075    0x2a  Code  Gb  uip_arp.o [1]
 uip_arp_out              0x800'1271   0x118  Code  Gb  uip_arp.o [1]
 uip_arp_timer            0x800'109f    0x46  Code  Gb  uip_arp.o [1]
 uip_arp_update           0x800'10e5    0xd0  Code  Lc  uip_arp.o [1]
-uip_buf                 0x2000'9e50   0x5e0  Data  Gb  uip.o [1]
-uip_conn                0x2000'a54c     0x4  Data  Gb  uip.o [1]
+uip_buf                 0x2000'9f14   0x5e0  Data  Gb  uip.o [1]
+uip_conn                0x2000'a610     0x4  Data  Gb  uip.o [1]
 uip_conns               0x2000'61bc  0x1e8c  Data  Gb  uip.o [1]
-uip_draddr              0x2000'a5ac     0x4  Data  Gb  uip.o [1]
-uip_ethaddr             0x2000'a590     0x8  Data  Gb  uip.o [1]
-uip_flags               0x2000'a524     0x1  Data  Gb  uip.o [1]
-uip_hostaddr            0x2000'a528     0x4  Data  Gb  uip.o [1]
+uip_draddr              0x2000'a670     0x4  Data  Gb  uip.o [1]
+uip_ethaddr             0x2000'a654     0x8  Data  Gb  uip.o [1]
+uip_flags               0x2000'a5e8     0x1  Data  Gb  uip.o [1]
+uip_hostaddr            0x2000'a5ec     0x4  Data  Gb  uip.o [1]
 uip_init                 0x800'0255    0x60  Code  Gb  uip.o [1]
 uip_ipchksum             0x800'01ef    0x22  Code  Gb  uip.o [1]
-uip_len                 0x2000'a52c     0x2  Data  Gb  uip.o [1]
-uip_listenports         0x2000'a538     0xc  Data  Gb  uip.o [1]
-uip_netmask             0x2000'a5b0     0x4  Data  Gb  uip.o [1]
+uip_len                 0x2000'a5f0     0x2  Data  Gb  uip.o [1]
+uip_listenports         0x2000'a5fc     0xc  Data  Gb  uip.o [1]
+uip_netmask             0x2000'a674     0x4  Data  Gb  uip.o [1]
 uip_process              0x800'0379   0x970  Code  Gb  uip.o [1]
-uip_sappdata            0x2000'a548     0x4  Data  Gb  uip.o [1]
-uip_slen                0x2000'a52e     0x2  Data  Gb  uip.o [1]
+uip_sappdata            0x2000'a60c     0x4  Data  Gb  uip.o [1]
+uip_slen                0x2000'a5f2     0x2  Data  Gb  uip.o [1]
 uip_tcpchksum            0x800'0251     0x4  Code  Gb  uip.o [1]
 uip_udp_appcall          0x800'0e85    0x3c  Code  Gb  ethernet.o [1]
-uip_udp_conn            0x2000'a550     0x4  Data  Gb  uip.o [1]
-uip_udp_conns           0x2000'9844   0x60c  Data  Gb  uip.o [1]
+uip_udp_conn            0x2000'a614     0x4  Data  Gb  uip.o [1]
+uip_udp_conns           0x2000'9908   0x60c  Data  Gb  uip.o [1]
 uip_udp_new              0x800'02b5    0x94  Code  Gb  uip.o [1]
 upper_layer_chksum       0x800'0211    0x40  Code  Lc  uip.o [1]
 uwTick                  0x2000'0010     0x4  Data  Gb  stm32f1xx_hal.o [1]
@@ -648,7 +649,7 @@ uwTickPrio              0x2000'0014     0x4  Data  Gb  stm32f1xx_hal.o [1]
 
   18'018 bytes of readonly  code memory
      591 bytes of readonly  data memory (+ 2'028 absolute)
-  50'613 bytes of readwrite data memory
+  50'809 bytes of readwrite data memory
 
 Errors: none
 Warnings: none

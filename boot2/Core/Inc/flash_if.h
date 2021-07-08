@@ -141,10 +141,10 @@
 #define A_LOGIN_SMTP A_PORT_SNMP+2
 #define A_PASSWORD_SMTP A_LOGIN_SMTP+16
 #define A_GEOM_NAME A_PASSWORD_SMTP+16  
-#define A_ID_MAC A_GEOM_NAME+32        
+#define A_ID_MAC A_GEOM_NAME+86        
 #define A_NAME_DEV A_ID_MAC+8
-#define A_CALL_DATA A_NAME_DEV+16
-#define A_IP_SNMP A_CALL_DATA+16
+#define A_CALL_DATA A_NAME_DEV+86
+#define A_IP_SNMP A_CALL_DATA+86
 #define A_NTP_CIRCL A_IP_SNMP+4 
 #define A_TYPE_OUT A_NTP_CIRCL+1
 #define A_RESV V_TYPE_OUT+1
@@ -503,10 +503,10 @@ char V_LOGIN_SMTP[32];
 ////#define A_LOGIN_SNMP 0x800411D
 char V_PASSWORD_SMTP[32];
 ////#define A_PASSWORD_SNMP 0x800412B
-char V_GEOM_NAME[32];
+char V_GEOM_NAME[86];
 uint8_t V_ID_MAC[8];
-char V_Name_dev[16];
-char V_CALL_DATA[16];
+char V_Name_dev[86];
+char V_CALL_DATA[86];
 uint8_t V_IP_SNMP[4];
 signed char V_NTP_CIRCL;
 uint8_t V_TYPE_OUT;
